@@ -12,6 +12,7 @@ function barchart() {
         right: 40,
         bottom: 20
       },
+      svg,
       width = 700 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom,
       xValue = d => d[0],
@@ -23,14 +24,26 @@ function barchart() {
       yScale = d3.scaleBand(),
       ourBrush = null,
       selectableElements = d3.select(null),
-      dispatcher;
-  
-    // Create the chart by adding an svg to the div with the id 
-    // specified by the selector using the given data
-    function chart(selector, data) {
-        data= data.filter(d => d['route_id'] === 'Red' && d['time_period_id'] === 'time_period_01'&& d['dir_id'] === 'NB');
-        //data= data.filter(d => d['time_period_id'] === 'time_period_01');
-      let svg = d3.select(selector)
+      dispatcher,
+      olddata;
+
+    function createBarchart(selector, data, rid){
+      olddata=data;
+      let bcdata = data.filter(d => d['route_id'] === rid) 
+      .reduce((acc, current) => {
+           if (!acc[current['stop_name']]) {
+           acc[current['stop_name']] = current;
+           }
+           return acc;
+       }, {});
+      bcdata = Object.values(bcdata);
+
+      svg = d3.select(selector);
+      if(svg.selectAll("*").size()>0){
+          svg.selectAll("*").remove();
+      }
+
+      svg = svg
         .append("svg")
           .attr("preserveAspectRatio", "xMidYMid meet")
           .attr("viewBox", [0, 0, width + margin.left + margin.right, height + margin.top + margin.bottom].join(' '))
@@ -49,7 +62,7 @@ function barchart() {
   
       yScale
         .domain(
-          data.map(yValue)
+          bcdata.map(yValue)
         )
         .range([0, height]);
   
@@ -70,10 +83,10 @@ function barchart() {
           .attr("transform", "translate(" + yLabelOffsetPx + ", -12)")
           .text(yLabelText);
   
-      // Add the points
+      // Add the bars
       let bars = svg.append("g")
         .selectAll(".bar")
-          .data(data);
+          .data(bcdata);
   
       bars.exit().remove();
   
@@ -81,17 +94,48 @@ function barchart() {
         .append("rect")
             .attr("class", "bar")
             .attr("x", 0)
-            .attr("width", d => xScale(d.average_flow))
+            .attr("width", d => xScale(d.total))
             //.attr("width", d => d.average_flow)
             .attr("y", d => yScale(d.stop_name))
-            .attr("height", yScale.bandwidth())
+            .attr("height", yScale.bandwidth()-2)
             //.attr("height", 10)
-            .attr("fill", "Gray");
+            .attr("fill", "#76b7b2")
+            .on("click",selectstop);
             
       
       selectableElements = bars;
+    }
+
+    function selectstop(d) {
+          
+      //alert(d.total);
+      svg.selectAll(".selected").classed("selected", false);
+      //points.classed("selected", d => d === this);
+      //alert("selected beg");
       
-      svg.call(brush);
+      d3.select(this).classed("selected", true);
+      //alert("selected");
+      //alert(this);
+      // Get the name of our dispatcher's event
+      let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+
+    // Let other charts know
+      //alert(svg.selectAll(".selected").data());
+      dispatcher.call(dispatchString, svg, svg.selectAll(".selected").data());
+    
+  }
+
+    // Create the chart by adding an svg to the div with the id 
+    // specified by the selector using the given data
+    function chart(selector, data) {
+      createBarchart(selector, data, "Red");
+
+        //data= data.filter(d => d['route_id'] === 'Red' && d['time_period_id'] === 'time_period_01'&& d['dir_id'] === 'NB');
+        //data= data.filter(d => d['time_period_id'] === 'time_period_01');
+      
+      
+      
+      //svg.call(brush);
   
       // Highlight points when brushed
       function brush(g) {
@@ -206,7 +250,12 @@ function barchart() {
     // Given selected data from another visualization 
     // select the relevant elements here (linking)
     chart.updateSelection = function (selectedData) {
+      rid = selectedData[0].route_id;
+      //alert(rid);
+      //alert(selectedData[0].stop_name);
       if (!arguments.length) return;
+      createBarchart("#barchart", olddata, rid);
+
   
       // Select an element if its datum was selected
       selectableElements.classed("selected", d => {

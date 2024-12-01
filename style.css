@@ -77,3 +77,34 @@ h1, h2, h3 {
 		box-shadow:4px 4px 10px rgba(0,0,0,0.8);
 	}
 }
+
+.mbtamap-holder {
+    flex: 0 0 50%;
+}
+
+circle.selected {
+    /*fill: pink;*/
+    stroke: black;
+    opacity: 5;
+    r: 40;
+}
+
+rect.selected {
+    fill: #4e79a7;
+    opacity: 5;
+}
+
+.axisLabel {
+	fill: #475d7c;
+}
+
+.linePath {
+	fill: none;
+	stroke: black;
+	stroke-width: 1;
+}
+
+.linechart-holder {
+	font-size: 12px;
+    flex: 0 0 50%;
+}

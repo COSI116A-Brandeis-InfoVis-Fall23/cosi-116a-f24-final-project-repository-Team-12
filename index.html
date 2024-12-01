@@ -60,7 +60,10 @@
   
   <!-- Your visualization here -->
   <div class="vis-holder">
+    <div class="mbtamap-holder" id="mbtamap"></div>
     <div class="barchart-holder" id="barchart"></div>
+    <div class="linechart-holder" id="linechart" width="500" height="400"></div>
+    
     <!-- Change viewbox to whatever you want, e.g. "0 0 1000 6000" This determines your aspect ratio and coordinate system -->    
     <!-- Delete all the sample SVG code below after the viewbox to before the closing tag. Populate this part of the SVG with D3. -->
     <svg id="vis-svg"
@@ -128,7 +131,9 @@
   
   <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
   <script src="lib/d3.v4/d3.v4.js"></script>
+  <script src="js/mbtamap.js"></script>
   <script src="js/barchart.js"></script>
+  <script src="js/linechart.js"></script>
   <script src="js/visualization.js"></script>
 </body>
 </html>
