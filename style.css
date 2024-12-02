@@ -17,6 +17,7 @@ h1, h2, h3 {
 
 /* But your visualization should be full-width and full-height */
 .vis-holder {
+	display: flex;
   width: 100%;
   height: 100%;
 }
@@ -79,7 +80,11 @@ h1, h2, h3 {
 }
 
 .mbtamap-holder {
-    flex: 0 0 50%;
+    flex: 1;
+}
+
+.barchart-holder {
+	flex: 0 0 60%;
 }
 
 circle.selected {
@@ -95,6 +100,7 @@ rect.selected {
 }
 
 .axisLabel {
+	font-size: 8px;
 	fill: #475d7c;
 }
 
@@ -105,6 +111,13 @@ rect.selected {
 }
 
 .linechart-holder {
-	font-size: 12px;
-    flex: 0 0 50%;
+	flex: 1;
+}
+
+.captiontext {
+    font-size: 12px;
+}
+axis text {
+	font-size: 30px; 
+ 	fill: #000;
 }

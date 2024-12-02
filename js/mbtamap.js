@@ -1,7 +1,9 @@
 /* global D3 */
 
-// Initialize a line chart. Modeled after Mike Bostock's
+// Initialize a mbta map. Modeled after Mike Bostock's
 // Reusable Chart framework https://bost.ocks.org/mike/chart/
+// the stations on the map can be selected, and link to the line, bar charts
+// MBTA_Rapid_Transit.svg is usd
 function mbtamap() {
 
     // Based on Mike Bostock's margin convention
@@ -130,6 +132,7 @@ function mbtamap() {
               });
               let points= svg.selectAll(".mbtapoint");
               //alert(points.size());
+              //let points = null;
               selectableElements = points;
 
               //svg.call(brush);
@@ -145,6 +148,7 @@ function mbtamap() {
           //alert("selected beg");
           
           svg.select("#"+d.parent_station).classed("selected", true);
+          
           //alert("selected");
           //alert(this);
           // Get the name of our dispatcher's event
@@ -278,6 +282,9 @@ function mbtamap() {
       if (!arguments.length) return;
   
       // Select an element if its datum was selected
+      if (selectedData.length==0) return;
+      //svg.selectAll(".selected").classed("selected", false);
+      //svg.select("#"+selectedData[0].parent_station).classed("selected",true);
       selectableElements.classed("selected", d => {
         //alert(d[0]);
         return selectedData.includes(d)

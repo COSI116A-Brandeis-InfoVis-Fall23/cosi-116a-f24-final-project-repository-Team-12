@@ -1,7 +1,9 @@
 /* global D3 */
 
-// Initialize a barchart. Modeled after Mike Bostock's
-// Reusable Chart framework https://bost.ocks.org/mike/chart/
+// Initialize a barchart. 
+// this barchart represent the Average flow on x-axis, represent the stations of a MBTAline on the y-axis
+// this chart links with the mbtamap, when a station of on line is selected on the mbtamap, this chart will show the average flow of all the stations on that line with the selected station highlighted
+// also selecting the bars on this chart will link to the changes on the map and line
 function barchart() {
 
     // Based on Mike Bostock's margin convention
@@ -13,8 +15,8 @@ function barchart() {
         bottom: 20
       },
       svg,
-      width = 700 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom,
+      width = 800 - margin.left - margin.right,
+      height = 700 - margin.top - margin.bottom,
       xValue = d => d[0],
       yValue = d => d[1],
       xLabelText = "",
@@ -24,11 +26,13 @@ function barchart() {
       yScale = d3.scaleBand(),
       ourBrush = null,
       selectableElements = d3.select(null),
-      dispatcher,
-      olddata;
+      dispatcher,//use the send data between charts(js file)
+      olddata;//record original data 
 
+    //create the barchart using selector and data, also the route id(rid)
     function createBarchart(selector, data, rid){
       olddata=data;
+      //filter the data to fit the route id(get the data of the selected station(route))
       let bcdata = data.filter(d => d['route_id'] === rid) 
       .reduce((acc, current) => {
            if (!acc[current['stop_name']]) {
@@ -36,13 +40,15 @@ function barchart() {
            }
            return acc;
        }, {});
-      bcdata = Object.values(bcdata);
+      bcdata = Object.values(bcdata);//the filtered data
 
+      //clear the old svg contents
       svg = d3.select(selector);
       if(svg.selectAll("*").size()>0){
           svg.selectAll("*").remove();
       }
 
+      //create new svg
       svg = svg
         .append("svg")
           .attr("preserveAspectRatio", "xMidYMid meet")
@@ -51,7 +57,17 @@ function barchart() {
   
       svg = svg.append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-  
+      // add a title for the bar chart on a fixed location
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", -20)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "hanging")
+        .attr("font-size", "16px")
+        .attr("font-family","sans-serif")
+        .attr("font-weight", "bold")
+        .text(bcdata[0].route_name +" Average Flow");
+      
       //Define scales
       xScale
         .domain([
@@ -66,19 +82,33 @@ function barchart() {
         )
         .range([0, height]);
   
+      //Define x,y axises
       let xAxis = svg.append("g")
           .attr("transform", "translate(0," + (height) + ")")
-          .call(d3.axisBottom(xScale));
+          .call(d3.axisBottom(xScale))
+          .selectAll("text")
+          .style("text-anchor", "end")
+          .style("font-family","sans-serif")
+          .style("fill", "black")
+          .style("font-size","12px");
           
-      // X axis label
+      // add X axis label
       xAxis.append("text")        
           .attr("class", "axisLabel")
           .attr("transform", "translate(" + (width - 50) + ",-10)")
           .text(xLabelText);
-        
+      
       let yAxis = svg.append("g")
           .call(d3.axisLeft(yScale))
-        .append("text")
+          .selectAll("text")
+          .style("text-anchor", "end")
+          //.attr("transform", "rotate(-90)")
+          .style("font-family","sans-serif")
+          .style("fill", "black")
+          .style("font-size","12px")
+          .attr("y",5);
+          
+          yAxis.append("text")
           .attr("class", "axisLabel")
           .attr("transform", "translate(" + yLabelOffsetPx + ", -12)")
           .text(yLabelText);
@@ -102,10 +132,11 @@ function barchart() {
             .attr("fill", "#76b7b2")
             .on("click",selectstop);
             
-      
+      //set all the bars on the svg as selectableElement(make it selectable)
       selectableElements = bars;
     }
 
+    //create the event for click and select
     function selectstop(d) {
           
       //alert(d.total);
