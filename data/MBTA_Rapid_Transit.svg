@@ -18,17 +18,16 @@
  </g>
  <g id="layer17" transform="translate(0,450)">
   <g stroke-linejoin="round" fill="none">
-   <g stroke="#fff" stroke-width="10">
+   <g stroke="gainsboro" stroke-width="10">
     <circle id="circle15213" cy="563.95" cx="1011.5" r="25"/>
     
     <circle id="circle15215" cx="961.46" cy="650.55" r="25"/>
     <circle id="circle15217" cy="600.55" cx="874.86" r="25"/>
     <circle id="circle15219" cx="924.86" cy="513.95" r="25" />
     <circle id="circle15221" cx="1035.7" cy="410.78" r="25" />
-    
+    <circle id="place-north" cy="263.2" cx="989.58" r="25"/>
    </g>
    <g stroke="#000" stroke-width="10">
-    <circle id="place-north" cy="263.2" cx="989.58" r="25"/>
     <circle id="place-state" cx="1011.5" cy="563.95" r="30"/> 
     <circle id="place-dwnxg" cy="650.55" cx="961.46" r="30"/>
     <circle id="place-pktrm" cx="874.86" cy="600.55" r="30"/>
@@ -36,7 +35,7 @@
     <circle id="place-haecl" cy="410.78" cx="1035.7" r="30"/>
    </g>
   </g>
-  <g stroke-linejoin="round" fill-rule="evenodd" stroke="#000" stroke-width="5" fill="#fff">
+  <g stroke-linejoin="round" fill-rule="evenodd" stroke="#000" stroke-width="5" fill="gainsboro">
    <circle id="place-ccmnl" cy="165.9" cx="911.45" r="25"/>
    <circle id="place-sull" cx="861.47" cy="50.255" r="25" />
    <circle id="place-mlmnl" cy="-309.75" cx="861.47" r="25" />
@@ -54,8 +53,8 @@
    <circle id="mattapan" cy="1646.3" cx="760.22" r="25" fill="#888"/>
    <circle id="place-spmnl" cx="862.07" cy="240.17" r="25"/>
   </g>
-  <!--<circle id="place-north" stroke-linejoin="round" cx="989.58" stroke="#000" cy="263.2" r="25" stroke-width="10" fill="none"/>-->
-  <g stroke-linejoin="round" fill-rule="evenodd" stroke="#000" stroke-width="5" fill="#fff">
+  <circle id="place-north1" stroke-linejoin="round" cx="989.58" stroke="#000" cy="263.2" r="25" stroke-width="10" fill="none"/>
+  <g stroke-linejoin="round" fill-rule="evenodd" stroke="#000" stroke-width="5" fill="gainsboro">
    <circle id="place-rbmnl" cx="1438.9" cy="123.67" r="25"/>
    <circle id="place-armnl" cx="732.16" cy="660.41" r="25"/>
    <circle id="place-bomnl" cy="423.01" cx="871.81" r="25"/>
@@ -90,6 +89,7 @@
    <circle id="place-rugg" cx="599.96" cy="933.87" r="25"/>
    <circle id="place-grnst" cy="1260" cx="411.65" r="25"/>
    <circle id="place-lake" cy="578.14" cx="60.224" r="25" />
+   <circle id="place-alsgr" cy="578.14" cx="300.21" r="25" />
    <circle id="place-clmnl" cx="107.72" cy="660.41" r="25"/>
    <circle id="place-river" cy="742.69" cx="21.079" r="25"/>
    <circle id="place-asmnl" cx="1105.2" cy="1531.3" r="25"/>
@@ -109,12 +109,12 @@
    <path id="path14905" d="m984.58 254.55 9.9902 17.305a10 10 0 0 1 -4.9941 1.3477 10 10 0 0 1 -10 -10 10 10 0 0 1 5.0039 -8.6524z" fill="#080"/>
    <path id="path14907" d="m989.58 253.2a10 10 0 0 1 10 10 10 10 0 0 1 -5.0059 8.6523l-9.9902-17.305a10 10 0 0 1 4.9961 -1.3476z" fill="#f80"/>
   </g>
-  <g stroke-linejoin="round" fill-rule="evenodd" stroke="#000" stroke-width="5" fill="#fff">
+  <g stroke-linejoin="round" fill-rule="evenodd" stroke="#000" stroke-width="5" fill="gainsboro">
    <circle id="place-rcmnl" cy="1016.1" cx="552.46" r="25"/>
    <circle id="place-forhl" cx="364.15" cy="1342.3" r="25"/>
    <circle id="place-astao" cy="-69.745" cx="861.47" r="25"/>
    <circle id="place-kencl" cx="497.29" cy="660.41" r="25"/>
-  </g>
+  </g>Allston Street
  </g>
  <g id="layer18" transform="translate(0,450)">
   <g font-family="&apos;Bitstream Vera Sans&apos;" fill="#000000">
@@ -192,6 +192,7 @@
     <text id="text15562" style="word-spacing:0px;letter-spacing:-1px;text-anchor:middle;text-align:center" xml:space="preserve" line-height="89.99999762%" y="500" x="570.5"><tspan id="tspan15564" x="570" y="500">Central</tspan></text>
     <text id="text15566" style="word-spacing:0px;letter-spacing:-1px;text-anchor:middle;text-align:center" line-height="89.99999762%" y="490" x="674.5" xml:space="preserve"><tspan id="tspan15568" y="490" x="674">Kendall/</tspan><tspan id="tspan15574" y="512.5" x="674">MIT</tspan></text>
     <text id="text15570" style="word-spacing:0px;letter-spacing:-1px;text-anchor:middle;text-align:center" xml:space="preserve" line-height="89.99999762%" y="490" x="780.5"><tspan id="tspan15572" x="780" y="490">Charles/</tspan><tspan id="tspan15576" x="780" y="512.5">MGH</tspan></text>
+    <text id="textadd" style="word-spacing:0px;letter-spacing:-1px;text-anchor:middle;text-align:center" line-height="89.99999762%" y="550" x="280.5" xml:space="preserve"><tspan id="tspan15580" y="550" x="280">Allston Street</tspan></text>
     <text id="text15578" style="word-spacing:0px;letter-spacing:-1px;text-anchor:middle;text-align:center" line-height="89.99999762%" y="630" x="650.5" xml:space="preserve"><tspan id="tspan15580" y="630" x="650">Copley</tspan></text>
     <text id="text15582" style="word-spacing:0px;letter-spacing:-1px;text-anchor:end;text-align:end" xml:space="preserve" line-height="89.99999762%" y="624" x="831"><tspan id="tspan15584" x="830" y="624">Boylston</tspan></text>
     <text id="text15586" style="word-spacing:0px;letter-spacing:-1px;text-anchor:middle;text-align:center" line-height="89.99999762%" y="700" x="730.5" xml:space="preserve"><tspan id="tspan15588" y="700" x="730">Arlington</tspan></text>

@@ -14,8 +14,8 @@ function mbtamap() {
         right: 30,
         bottom: 35
       },
-      width = 500 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom,
+      width = 1500 - margin.left - margin.right,
+      height = 2250 - margin.top - margin.bottom,
       xValue = d => d[0],
       yValue = d => d[1],
       xLabelText = "",
@@ -28,58 +28,38 @@ function mbtamap() {
       svg,
       threshold1,
       threshold2,
+      tooltip,
       dispatcher;
 
   
     // Create the chart by adding an svg to the div with the id 
     // specified by the selector using the given data
-    function chart(selector, data) {
-        //alert("aaa");
-        
-        fetch('data/MBTA_Rapid_Transit.svg')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          return response.text();
-        })
-        .then(data => {
-          const parser = new DOMParser();
-          const svgDoc = parser.parseFromString(data, 'image/svg+xml');
-          /*const circle = svgDoc.getElementById('place-sull');
-          if (circle && circle.tagName === 'circle') {
-            //alert(circle);
-            const circleSelection = d3.select(circle);
-            //alert(circleSelection.node().outerHTML);
-            circleSelection.data([data[0]]);
-            circleSelection.attr('fill', "green");
-          }*/
-          
-          svg = d3.select(selector).node().appendChild(svgDoc.documentElement);
-          svg= d3.select(svg);
-          //svg.attr("viewBox", [0, 0, width + margin.left + margin.right, height + margin.top + margin.bottom].join(' '))
-          
-          
-     })
-     .catch(error => {
-         
-          console.error('Error loading SVG:', error);
-     });
-      /*svg = svg.append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-      //alert("aaa2");*/
-      //alert(svg.html());
+    function chart(selector, data, intooltip) {
+      //alert("aaa");
+      tooltip = intooltip;
+
+      //get the map from the svg file
+      fetch('data/MBTA_Rapid_Transit.svg')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then(data => {
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(data, 'image/svg+xml');
+        svg = d3.select(selector).node().appendChild(svgDoc.documentElement);
+        svg= d3.select(svg);
+      })
+      .catch(error => {
+            console.error('Error loading SVG:', error);
+      });
 
       //Define scales
       xScale
         .domain(d3.map(data, xValue).keys())
         .rangeRound([0, width]);
-  
-      minY = d3.min(data, d => yValue(d));
-      maxY = d3.max(data, d => yValue(d));
-
-      threshold1 = minY + (maxY - minY) / 3;
-      threshold2 = minY + 2 * (maxY - minY) / 3;  
       yScale
         .domain([
           d3.min(data, d => yValue(d)),
@@ -87,78 +67,78 @@ function mbtamap() {
         ])
         .rangeRound([height, 0]);
 
-      setTimeout(function() {
-            /*var nc = d3.select('#place-sull');
-            alert(nc.size());
-            if (nc.size()>0) {
-                alert(nc.size());
-                alert(nc.node().outerHTML);
-           
-                }else{
-             alert("3333");
-             }*/
-             data.forEach(d => {
-                //alert(xValue(d));      
-                //tempc = d3.select("#" + xValue(d));
-                        //.data([d]);
-                        
-                let tempc = d3.select("#" + xValue(d));           
-                
-                if(tempc.size()>0&&tempc.attr("fill")===null){
-                    //tempc.data([d]);
-                    //alert(tempc.size()+d.parent_station); 
-                    
-                    let tcolor;
-                    if (yValue(d) > threshold2) {
-                        tcolor = 'red';
-                      } else if (yValue(d) > threshold1) {
-                        tcolor = 'yellow';
-                      } else {
-                        tcolor = 'green';
-                      }
-                    //alert(tempc.attr("fill"));
-                    tempc.attr("fill",tcolor);
-                    tempc.attr("class","point mbtapoint")
-                    
-                
-                   
-                    tempc.datum(d);
-                    tempc.on("click",selectstop);
-                    //alert(JSON.stringify(tempc.datum()));
-                    //alert(tempc.datum().stop_name);
-    
-                }
-                
-              });
-              let points= svg.selectAll(".mbtapoint");
-              //alert(points.size());
-              //let points = null;
-              selectableElements = points;
+      //define threshold for total
+      threshold1 = 1000000;
+      threshold2 = 2000000;
+      threshold3 = 4000000;
 
-              //svg.call(brush);
-              
-              
-       }, 500);   
-       //alert("stop data installed"); 
-       function selectstop(d) {
-          
-          //alert(d.total);
-          svg.selectAll(".selected").classed("selected", false);
-          //points.classed("selected", d => d === this);
-          //alert("selected beg");
-          
-          svg.select("#"+d.parent_station).classed("selected", true);
-          
-          //alert("selected");
-          //alert(this);
-          // Get the name of our dispatcher's event
-          let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+      setTimeout(function() { 
+        //find stops on the svg map
+        data.forEach(d => {
+           let tempc = d3.select("#" + xValue(d));           
+           if(tempc.size()>0&&tempc.attr("fill")===null){
 
-        // Let other charts know
-          //alert(svg.selectAll(".selected").data());
-          dispatcher.call(dispatchString, svg, svg.selectAll(".selected").data());
-        
-      }
+               let tcolor,tempr=20;
+               //give the circles of the stops different clolors and size base on the flow amount
+               if (yValue(d) > threshold3) {
+                   tempr =35;
+               }else if (yValue(d)>threshold2){
+                   tcolor = "darkgray";
+                   tempr = 25;
+                 } else if (yValue(d) > threshold1) {
+                   tcolor = 'gray';
+                   tempr = 20;
+                 } else {
+                   tcolor = 'gainsboro';
+                   tempr = 15;
+                 }
+
+               tempc.attr("class","point mbtapoint");
+               tempc.attr("r",tempr);
+               //tempc.attr("fill",tcolor);
+               
+               tempc.datum(d);
+            }         
+          });
+          //create legend
+          let lengendData = [
+              { label: "Low ( < 1M )", r: 15 },
+              { label: "Medium(1M-2M)", r: 20 },
+              { label: "High (2M-4M)", r: 25 },
+              { label: "Very High(>4M)", r: 35 }
+          ];
+          let legend = svg.append("g")
+                  .attr("transform", "translate(" + (0) + "," + (height+35) + ")");
+          //draw circle
+          legend.selectAll("circle")
+                .data(lengendData)
+                .enter()
+                .append("circle")
+                .attr("cx", (d,i)=> i * 320+60)
+                .attr("cy", 0)
+                .attr("r", d => d.r)
+                .attr("fill", "gainsboro")
+                .attr("stroke", "black")
+                .attr("stroke-width", "2.5px");
+          //add texts(label)
+          legend.selectAll("text")
+                .data(lengendData)
+                .enter()
+                .append("text")
+                .attr("x", (d,i)=> i * 320+d.r+65)
+                .attr("y", 5)
+                .attr("font-size", "30px")
+                .attr("fill","black")
+                .text(d => d.label);
+
+          points = svg.selectAll(".mbtapoint");
+          selectableElements = points;
+
+          svg.call(brush);
+         
+         
+        }, 500);
+
       // Highlight points when brushed
       function brush(g) {
         const brush = d3.brush()
@@ -166,12 +146,11 @@ function mbtamap() {
           .on("end", brushEnd)
           .extent([
             [-5,-6],
-            [1500,1500]  
+            [1500,2300]  
             //[-margin.left, -margin.bottom],
             //[width + margin.right, height + margin.top]
-
           ]);
-  
+
         ourBrush = brush;
   
         g.call(brush); // Adds the brush to this element
@@ -179,14 +158,30 @@ function mbtamap() {
         // Highlight the selected circles.
         function highlight() {
           if (d3.event.selection === null) return;
-          const [
+          //get brush selection's position
+          var [
             [x0, y0],
             [x1, y1]
           ] = d3.event.selection;
-          //alert(x0+" "+y0+"  "+x1+"  "+y1+ " "+JSON.stringify(d3.event));
-          points.classed("selected", d =>
-            x0 <= X(d) && X(d) <= x1 && y0 <= Y(d) && Y(d) <= y1
-          );
+          
+          //transform brush position to absolute position
+          var svgRect = svg.node().getBoundingClientRect();
+          var svgTransform = svg.node().getCTM();
+          //calculate the absolute position
+          x0 = x0*svgTransform.a +svgRect.left;
+          y0 = y0*svgTransform.d +svgRect.top+svgTransform.f;
+          x1 = x1*svgTransform.a +svgRect.left;
+          y1 = y1*svgTransform.d +svgRect.top+svgTransform.f;
+
+          points.each(function(d){
+            let curobj= d3.select(this);
+            let x=X(this);
+            let y=Y(this);
+            
+            let  flag = (x0 <= x && x <= x1 && y0 <= y && y<= y1);
+            curobj.classed("selected",flag);
+
+          });
   
           // Get the name of our dispatcher's event
           let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
@@ -208,21 +203,22 @@ function mbtamap() {
     }
   
     // The x-accessor from the datum
-    function X(d) {
-        alert(xValue(d));
-        return xScale(xValue(d));
-    }
-  
-    // The y-accessor from the datum
-    function Y(d) {
-      return yScale(yValue(d));
-    }
-  
-    chart.margin = function (_) {
-      if (!arguments.length) return margin;
-      margin = _;
-      return chart;
-    };
+    function X(cobj) {
+      var temprect= cobj.getBoundingClientRect();
+       return (temprect.left);
+   }
+ 
+   // The y-accessor from the datum
+   function Y(cobj) {
+       var temprect= cobj.getBoundingClientRect();
+       return (temprect.top);
+   }
+ 
+   chart.margin = function (_) {
+     if (!arguments.length) return margin;
+     margin = _;
+     return chart;
+   };
   
     chart.width = function (_) {
       if (!arguments.length) return width;
@@ -268,28 +264,31 @@ function mbtamap() {
   
     // Gets or sets the dispatcher we use for selection events
     chart.selectionDispatcher = function (_) {
-      //alert(arguments.length+" "+dispatcher);
       if (!arguments.length) return dispatcher;
       dispatcher = _;
-      //alert(dispatcher._);
       return chart;
     };
   
     // Given selected data from another visualization 
     // select the relevant elements here (linking)
     chart.updateSelection = function (selectedData) {
-      //alert("upatatembta");
       if (!arguments.length) return;
   
       // Select an element if its datum was selected
       if (selectedData.length==0) return;
-      //svg.selectAll(".selected").classed("selected", false);
-      //svg.select("#"+selectedData[0].parent_station).classed("selected",true);
+
       selectableElements.classed("selected", d => {
-        //alert(d[0]);
-        return selectedData.includes(d)
-      });
-    };
+           var flag= false;
+           selectedData.forEach(function(item){
+              if(item.parent_station==d.parent_station){
+                flag=true;
+              }
+           });
+           return flag;
+        });
+        //return selectedData.includes(d)
+  
+    }
   
     return chart;
   }
