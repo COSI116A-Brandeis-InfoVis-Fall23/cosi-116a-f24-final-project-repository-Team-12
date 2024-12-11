@@ -1,9 +1,11 @@
 /* global D3 */
 
 // Initialize a barchart. 
-// this barchart represent the Average flow on x-axis, represent the stations of a MBTAline on the y-axis
-// this chart links with the mbtamap, when a station of on line is selected on the mbtamap, this chart will show the average flow of all the stations on that line with the selected station highlighted
-// also selecting the bars on this chart will link to the changes on the map and line
+// This barchart/table shows details(saperate by time periods and different date) of averge flow and total flow of the stations/stops
+// the y-axis represents the stop name and the x-axis(data under x-axis) is about both average flow(divide by day type) and total flow
+// When the mouse is over the the different color rectangles within the bars under "Weekday, Sat, Sun" , it will show the secific name of the line,stop,time period, and average flow through the tooltip
+// The stops brushed/selected on the mbtamap will be highlighted/linked
+// When the mouse is over the bars under "Total" , it will show the totel flow of the stop/station
 /* global D3 */
 
 function barchart() {
@@ -264,6 +266,6 @@ function barchart() {
     });
 
   }
-  
+
   return chart;
 }

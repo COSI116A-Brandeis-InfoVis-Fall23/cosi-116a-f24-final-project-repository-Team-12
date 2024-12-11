@@ -1,9 +1,7 @@
-// Immediately Invoked Function Expression to limit access to our 
-// variables and prevent 
+// Immediately Invoked Function Expression to limit access to our variables and prevent race conditions
 ((() => {
   //these code is cited from visualization.js of homework4 brushing&linking
-  // Load the data from the csv file (MBTAridership.csv)
-
+    // Load the data from the csv file (MBTAridershipnew.csv)
     d3.csv("data/MBTAridershipnew.csv", (data) => {
       //calculate the total flows, total ons flow and total offs flow of every stations on the MBTA lines
       const totals = data.reduce((acc, d) => {
@@ -85,47 +83,9 @@
         bcStationflow.selectionDispatcher().on(dispatchString, function(selectedData) {
           MbtaMap.updateSelection(selectedData);
         // ADD CODE TO HAVE TABLE UPDATE ITS SELECTION AS WELL
-        //tableData.updateSelection(selectedData);
           lcTimeFlow.updateSelection(selectedData);
         });
-      }  , 700);
-
-    // Create a line chart given x and y attributes, labels, offsets; 
-    // a dispatcher (d3-dispatch) for selection events; 
-    // a div id selector to put our svg in; and the data to use.
-    /*let lcYearPoverty = linechart()
-      .x(d => d.year)
-      .xLabel("YEAR")
-      .y(d => d.poverty)
-      .yLabel("POVERTY RATE")
-      .yLabelOffset(40)
-      .selectionDispatcher(d3.dispatch(dispatchString))
-      ("#linechart", data);
-
-    // Create a table given the following: 
-    // a dispatcher (d3-dispatch) for selection events; 
-    // a div id selector to put our table in; and the data to use.
-    let tableData = table()
-      .selectionDispatcher(d3.dispatch(dispatchString))
-      ("#table", data);
-
-
-    // When the scatterplot selection is updated via brushing, 
-    // tell the line chart to update it's selection (linking)
-    // tell the table to update it's selection (linking)
-    spUnemployMurder.selectionDispatcher().on(dispatchString, function(selectedData) {
-      lcYearPoverty.updateSelection(selectedData);
-      // ADD CODE TO HAVE TABLE UPDATE ITS SELECTION AS WELL
-      tableData.updateSelection(selectedData);
-    });
-
-    // When the table is updated via brushing, tell the line chart and scatterplot
-    // YOUR CODE HERE
-    tableData.selectionDispatcher().on(dispatchString, function(selectedData) {//use varible selectedData to send and receive the change of selected area
-      spUnemployMurder.updateSelection(selectedData);
-      lcYearPoverty.updateSelection(selectedData);
-    });*/
+      }  , 500);
   });
-  //console.log("Hello, world!");
 
 })());

@@ -1,6 +1,9 @@
 /* global D3 */
 
 // Initialize a line chart. Modeled after Mike Bostock's
+// This chart shows the on/off flow of different time period for the stations.
+// x-axis represent the time period, y-axis represent the flows. The positive half-axis of the y-axis represents the total_ons, and the negative half-axis of the y-axis represents the total_offs.
+// The stations/stops brushed on the mbtamap will appear/link on the linechart, when you move the mouse over the lines, it will highlight and show show the lines(areas between the two lines).
 // Reusable Chart framework https://bost.ocks.org/mike/chart/
 function linechart() {
 

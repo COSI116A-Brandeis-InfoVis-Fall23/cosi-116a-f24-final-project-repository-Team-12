@@ -44,7 +44,7 @@ function tooltip() {
             tpdiv.style("left", (ax + 10) + "px")
                .style("top", (ay +2) + "px")             
                .transition()    
-               .duration(200)    
+               .duration(50)    
                .style("opacity", 1);
         
         }

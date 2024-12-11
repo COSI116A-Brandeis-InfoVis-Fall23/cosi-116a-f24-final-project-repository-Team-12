@@ -2,7 +2,7 @@
 
 // Initialize a mbta map. Modeled after Mike Bostock's
 // Reusable Chart framework https://bost.ocks.org/mike/chart/
-// the stations on the map can be selected, and link to the line, bar charts
+// the stations on the map can be selected, and link to the line, bar/table charts
 // MBTA_Rapid_Transit.svg is usd
 function mbtamap() {
 
