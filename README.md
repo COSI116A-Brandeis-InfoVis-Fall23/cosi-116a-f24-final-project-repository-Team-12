@@ -26,7 +26,7 @@
 
 ## About The Project
 
-[![Project Screenshot](images/screenshoot.jpg)](images/screenshoot.jpg)
+[![Project Screenshot](images/screenshoot.JPG)](images/screenshoot.JPG)
 
 This project focuses on visualizing the traffic flow data of Boston's MBTA (Massachusetts Bay Transportation Authority) network. It provides interactive and intuitive visualizations to analyze station congestion, passenger flow patterns, and traffic trends effectively.
 
