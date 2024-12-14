@@ -99,8 +99,11 @@ rect.selected {
 }
 
 .axisLabel {
-	font-size: 8px;
-	fill: #475d7c;
+	text-anchor:middle;
+    font-family: sans-serif;
+    font-size : 14px;
+    font-weight: bold;
+    fill:dimgrey;
 }
 
 .linePath {
@@ -243,4 +246,29 @@ table {
   }
   .totalbar.mouseover{
     fill:#8ca5db;
+  }
+  /* Don't do text drag selection in svg*/
+  svg.text-unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    cursor: default;
+  }
+  .axisText{
+    text-anchor: end;
+    font-family: sans-serif;
+    font-size : 12px;
+    fill:black;
+  }
+  .flowLegend{
+    position:absolute;
+    left:20%;
+    text-anchor:middle;
+    font-family: sans-serif;
+    font-size : 12px;
+    color:dimgrey;
   }

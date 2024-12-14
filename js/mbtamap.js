@@ -50,7 +50,8 @@ function mbtamap() {
         const parser = new DOMParser();
         const svgDoc = parser.parseFromString(data, 'image/svg+xml');
         svg = d3.select(selector).node().appendChild(svgDoc.documentElement);
-        svg= d3.select(svg);
+        svg= d3.select(svg)
+                .classed("text-unselectable", true);
       })
       .catch(error => {
             console.error('Error loading SVG:', error);

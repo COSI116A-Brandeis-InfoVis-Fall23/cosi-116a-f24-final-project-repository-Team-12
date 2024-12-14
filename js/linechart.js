@@ -51,7 +51,8 @@ function linechart() {
       svg =svg.append("svg")
             .attr("preserveAspectRatio", "xMidYMid meet")
             .attr("viewBox", [0, 0, width + margin.left + margin.right, height + margin.top + margin.bottom].join(' '))
-            .classed("svg-content", true);
+            .classed("svg-content", true)
+            .classed("text-unselectable", true);
     
       svg = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -98,14 +99,8 @@ function linechart() {
             
         // Put X axis tick labels at an angle
       xAxis.selectAll("text") 
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", "rotate(-10)")
-            .style("font-family","sans-serif")
-            .style("fill", "black")
-            .style("font-size","12px");
-           
+            .classed("axisText", true)
+            .attr("transform", "rotate(-10)");
             
         // X axis label
       xAxis.append("text")        
@@ -114,25 +109,25 @@ function linechart() {
             .text(xLabelText);
   
         // Y axis and label
-      let yAxisup = svg.append("g")
-            .call(d3.axisLeft(yScaleup))
-            .selectAll("text") 
-            .style("text-anchor", "end")
-            //.attr("transform", "rotate(-90)")
-            .style("font-family","sans-serif")
-            .style("fill", "black")
-            .style("font-size","12px")
-            .attr("y",5);
-      let yAxisdown = svg.append("g")
-            .call(d3.axisLeft(yScaledown))
-            .selectAll("text") 
-            .style("text-anchor", "end")
-            //.attr("transform", "rotate(-90)")
-            .style("font-family","sans-serif")
-            .style("fill", "black")
-            .style("font-size","12px")
-            .attr("y",5); 
-            //.text(yLabelText);
+        let yAxisup = svg.append("g")
+              .call(d3.axisLeft(yScaleup));
+        yAxisup.selectAll("text") 
+              .classed("axisText",true)
+              .attr("y",5);
+        let yAxisdown = svg.append("g")
+              .call(d3.axisLeft(yScaledown));
+        yAxisdown.selectAll("text") 
+              .classed("axisText",true)
+              .attr("y",5);
+      
+      yAxisup.append("text")
+            .attr("class", "axisLabel")
+            .attr("transform", `translate(${-margin.left + 95}, ${-margin.top + 60}) rotate(-90)`)
+            .text("Total Ons");
+      yAxisdown.append("text")
+            .attr("class", "axisLabel")
+            .attr("transform", `translate(${-margin.left +95}, ${height + margin.bottom - 60}) rotate(-90)`) 
+            .text("Total Offs");
      
       //get all the dir
       let uniqueStops = [...new Set(data.map(d => d.parent_station))];

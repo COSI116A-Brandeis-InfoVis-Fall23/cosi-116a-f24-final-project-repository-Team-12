@@ -74,11 +74,11 @@ function barchart() {
     let tbody = bchart.append("tbody");
     //go through every stops
     Object.keys(stopdata).forEach(key => {
-        let sdata = stopdata[key];
+        let singlestopdata = stopdata[key];
         let tr = tbody.append("tr")
                 .classed("stoprow", true);
-        setstopinfo(sdata,tr);
-        tr.datum(sdata[0]);
+        setstopinfo(singlestopdata,tr);
+        tr.datum(singlestopdata[0]);
     });
     bchart.selectAll(".stoprow")
       .on("mouseover", tmouseover)//create function for action mouseover
@@ -86,6 +86,7 @@ function barchart() {
       .on("mouseup", tmouseup)//create function for action muoseup
       .on("mousedown", tmousedown);//create function for action muosedown
 
+    createLegend(selector);
     //create chart for every stops
     function setstopinfo(data,curtr){
       //find all the route id for the current stop
@@ -189,8 +190,32 @@ function barchart() {
            d3.select(this).classed("mouseover",false);
            tooltip.hide();
          });
-     
+    }
+    //this function create legend
+    function createLegend(selector){
+      let colorLegend =d3.select(selector).append("div")
+          .classed("flowLegend", true);
 
+      //add text to show the range of Average Flow
+      colorLegend.append("text")
+          .text("Average Flow (0-"+Math.round(d3.max(data, d => d.average_flow))+") ");
+      //create a svg for the color gradient map of the color encodings for average flow on the chart
+      let legendSvg = colorLegend
+            .append("svg")
+            .attr("width", 200)
+            .attr("height", 30);
+        let numStops = 100; //divide the colors into 100 small rects
+        legendSvg.selectAll("rect")
+            .data(d3.range(numStops))
+            .enter()
+            .append("rect")
+            .attr("stroke", "none")
+            .attr("stroke-width", 0)
+            .attr("x", (d, i) => (i / numStops) * 400)
+            .attr("y", 20)
+            .attr("width", 400 / numStops)
+            .attr("height", 8)
+            .attr("fill", d => colorFlowScale(d3.scaleLinear().domain([0, numStops - 1]).range(colorFlowScale.domain())(d)));
     }
     
     let brushing = false;//set brushing flag for brushing operation(when mouseup it is true else false)

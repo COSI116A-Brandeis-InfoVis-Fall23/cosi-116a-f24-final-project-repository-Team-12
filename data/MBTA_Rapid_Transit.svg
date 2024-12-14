@@ -20,18 +20,19 @@
   <g stroke-linejoin="round" fill="none">
    <g stroke="gainsboro" stroke-width="10">
     <circle id="circle15213" cy="563.95" cx="1011.5" r="25"/>
-    
+    <circle id="circle-nor" cy="263.2" cx="989.58" r="20"/>
     <circle id="circle15215" cx="961.46" cy="650.55" r="25"/>
     <circle id="circle15217" cy="600.55" cx="874.86" r="25"/>
-    <circle id="circle15219" cx="924.86" cy="513.95" r="25" />
+    <circle id="circle15219" cx="924.86" cy="513.95" r="20" />
     <circle id="circle15221" cx="1035.7" cy="410.78" r="25" />
-    <circle id="place-north" cy="263.2" cx="989.58" r="25"/>
+    
    </g>
-   <g stroke="#000" stroke-width="10">
+   <g stroke="#000" stroke-width="5">
+    <circle id="place-north" cy="263.2" cx="989.58" r="25"/>
     <circle id="place-state" cx="1011.5" cy="563.95" r="30"/> 
     <circle id="place-dwnxg" cy="650.55" cx="961.46" r="30"/>
     <circle id="place-pktrm" cx="874.86" cy="600.55" r="30"/>
-    <circle id="place-gover" cy="513.95" cx="924.86" r="30"/>
+    <circle id="place-gover" cy="513.95" cx="924.86" r="25"/>
     <circle id="place-haecl" cy="410.78" cx="1035.7" r="30"/>
    </g>
   </g>
@@ -53,7 +54,7 @@
    <circle id="mattapan" cy="1646.3" cx="760.22" r="25" fill="#888"/>
    <circle id="place-spmnl" cx="862.07" cy="240.17" r="25"/>
   </g>
-  <circle id="place-north1" stroke-linejoin="round" cx="989.58" stroke="#000" cy="263.2" r="25" stroke-width="10" fill="none"/>
+  <!--<circle id="place-north1" stroke-linejoin="round" cx="989.58" stroke="#000" cy="263.2" r="25" stroke-width="5" fill=""/>-->
   <g stroke-linejoin="round" fill-rule="evenodd" stroke="#000" stroke-width="5" fill="gainsboro">
    <circle id="place-rbmnl" cx="1438.9" cy="123.67" r="25"/>
    <circle id="place-armnl" cx="732.16" cy="660.41" r="25"/>
