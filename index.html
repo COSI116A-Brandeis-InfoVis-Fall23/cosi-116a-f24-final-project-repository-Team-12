@@ -41,12 +41,12 @@
     <h1>Motivation</h1>
     
     <p><em>Summary of user needs and motivating questions.</em></p>
-    <p>Our initial motivation is to visualize the flow data of each station to show the different time periods of traffic flow between stations, so as to show the specific situation of traffic congestion. We plan to use different types of visualization encodings to present the content. We hope that our visualization can provide viewers with a new perspective on the congestion problem of Boston, while presenting the data in a concise and interactive way.</p>
+    <p>The primary motivation for this project is to provide a clear and interactive way to visualize MBTA station ridership data. By analyzing the flow of passengers at each station across different time periods, our goal is to shed light on traffic congestion patterns in Boston's public transportation system. Using a variety of visualization techniques, we aim to present the data in a way that is both accessible and insightful, offering viewers a new perspective on how passenger flows vary by station, time, and route.</p>
     <p>Users' needs:<br>
-      1. Traffic congestion at the site<br>
-      2. Differences in passenger flow between different routes<br>
-      3. Differences in passenger flow between different time periods<br>
-      4. Click to switch at any time and link time periods/lines/flow</p>
+      1. Understanding Traffic Congestion: Users need a tool to identify areas of high congestion at specific stations to better understand ridership pressure during different periods.<br>
+      2. Route Comparisons: Visualizing differences in passenger flow across various MBTA lines allows users to pinpoint which routes are under- or over-utilized.<br>
+      3. Time-Based Flow Analysis: Understanding how passenger flows change throughout the day, such as peak vs. off-peak hours, is essential for optimizing transportation services.<br>
+      4. Interactive Exploration: Users require the ability to dynamically interact with the data—such as switching between time periods, lines, or stations—to uncover specific insights and link temporal and spatial trends.</p>
     
     
     <p><em>Expectation: There is a clear focus, and a developed explanation of the problem, and a reasonable response is proposed.</em></p>
@@ -88,17 +88,44 @@
 
     <h1>Visualization explanation</h1>
     
-    <p><em>Final visualization screenshots (PNG images), design justifications, UI walk-through, and linked presentation slides.</em></p>
+    <p><em>1. Interactive Map Visualization</em></p>
+    <img src="images/Final visualization1.png" alt="the first final visualization" style="width:70%; height:auto;">
+    <p>The interactive map provides a clear spatial overview of the MBTA network, showing the layout of lines and stations. Each station is represented as a circle, with the size encoding average passenger flow, making it easy to identify high-traffic areas. Line colors match the MBTA system (e.g., Red Line, Green Line), enhancing familiarity. Tooltips provide station-specific details without overcrowding the visualization.</p>
+    <p>Interaction: Users can click on a station to update the bar and line charts, linking spatial data with specific flow and time trends for seamless exploration.</p>
+    
+    <p><em>2. Bar Chart Visualization</em></p>
+    <img src="images/Final visualization2.png" alt="the second final visualization" style="width:70%; height:auto;">
+    <p>The bar chart enables direct comparison of passenger flows across stations within a line. Horizontal bars ensure readability, and colors correspond to MBTA line colors for consistency with the map. The chart provides detailed insights into total and directional flows (on/off traffic), helping users identify patterns for specific stations.</p>
+    <p>Interaction: Selecting a station on the map updates the bar chart, and vice versa, allowing users to investigate flow trends interactively.</p>
+   
+    <p><em>3. Line Chart Visualization</em></p>
+    <img src="images/Final visualization3.png" alt="the third final visualization" style="width:70%; height:auto;">
+    <p>The line chart visualizes ridership trends over time for selected stations or lines. The x-axis represents time periods (e.g., AM Peak, PM Peak), while the y-axis shows passenger flow. Different lines use colors to distinguish directional or line-based trends, making it easy to spot temporal variations.</p>
+    <p>Interaction: The chart dynamically updates based on user selections on the map or bar chart, linking temporal patterns with spatial and categorical data.</p>
 
-    <p>We haven't finished yet.</p>
+    <p><em>Combined Design</em></p>
+    <img src="images/UI1.png" alt="the first UI walk-through" style="width:70%; height:auto;">
+    <img src="images/UI2.png" alt="the second UI walk-through" style="width:70%; height:auto;">
+    <p>Together, these visualizations integrate spatial (map), categorical (bar chart), and temporal (line chart) data, providing a comprehensive view of MBTA ridership patterns. The interactive linking between visualizations ensures a cohesive experience, helping users explore data from multiple perspectives while maintaining clarity and engagement.</p>
+    
+    <p><em>Link for presentation slides:</em></p>
 
+
+
+    
     <h1>Data Analysis</h1>
-    <p><em>Summary of data, data types, and data preprocessing.</em></p>
+    <p><em>Our project utilizes two main data sources:</em></p>
     <li><a href="https://commons.wikimedia.org/wiki/File:MBTA_Rapid_Transit.svg"> MBTA_Rapid_Transit.svg </a> </li>
+    <p>A map visualization of Boston’s MBTA system, representing the spatial layout of lines and stations.</p>
     <li><a href="https://mbta-massdot.opendata.arcgis.com/datasets/80a379ebaa374cfd836ca4d3880ceda4_0/explore">Fall 2023 MBTA Rail Ridership Data by SDP Time Period, Route/Line, and Stop</a> </li>
+    <p>This dataset includes ridership information categorized by time periods, routes/lines, and individual stops.</p>
 
-    <p>Currently we use mainly station, time period, and foot traffic related data, reflecting the difference in foot traffic between different stations and time periods. At the same time, we filtered the data in coding and calculated some data to make the display more clear, for example, we filtered the data to show the difference between different stations and different directions of the on/off flow.</p>
-    <!--<p><em>Expectation: Data sources match the problem statement and are appropriate. These descriptions should be very explicit so someone could read your page and properly reproduce your results.</em></p>-->
+    <p><em>To align with the problem statement and effectively visualize traffic congestion and passenger flow, we implemented the following preprocessing steps:</em></p>
+    <p>Data Filtering: Irrelevant data fields were removed to focus on station-level ridership, time periods, and directional on/off flows. This ensures clarity and removes noise from the dataset.</p>
+    <p>Data Aggregation: Metrics such as total foot traffic per station and ridership differences between time periods were calculated. Stations were further categorized into High, Average, or Low traffic levels for easier visualization.</p>
+    <p>Directional Analysis: Passenger flow was split into inbound and outbound categories to provide additional granularity in understanding ridership patterns.</p>
+    <p>Time Period Adjustments: Ridership data was organized by predefined time categories (e.g., AM Peak, PM Peak) to facilitate temporal comparisons.</p>
+ <!--<p><em>Expectation: Data sources match the problem statement and are appropriate. These descriptions should be very explicit so someone could read your page and properly reproduce your results.</em></p>-->
 
     <h1>Task Analysis</h1>
 
@@ -107,7 +134,7 @@
     <table border="1">
       <tr>
         <th>Index(ID#)</th>
-        <th>Whether it is done</th>
+        <th>Whether it is done and why if not</th>
         <th>"Domain" Task</th>
         <th>Analytic Task (low-level, "Query")</th>
         <th>Search Task (Mid-level)</th>
@@ -115,7 +142,7 @@
       </tr>
       <tr>
         <td>1</td>
-        <td>Yes</td>
+        <td>Yes, because the map visualizes congestion at nearby stations during peak hours, allowing for comparison and spatial analysis.</td>
         <td>Examine how station congestion impacts nearby stations during peak hours.</td>
         <td>compare</td>
         <td>locate</td>
@@ -123,7 +150,7 @@
       </tr>
       <tr>
         <td>2</td>
-        <td> </td>
+        <td>Yes, because the line chart shows ridership fluctuations across different time periods, such as AM Peak, PM Peak, and off-peak hours.</td>
         <td>Identify patterns of ridership fluctuation due to weather, time of day, or events.</td>
         <td>summarize</td>
         <td>explore</td>
@@ -131,44 +158,85 @@
       </tr>
       <tr>
         <td>3</td>
-        <td>Yes</td>
-        <td>Determine high traffic stations to focus improvement</td>
+        <td>Yes, because the bar chart identifies high-traffic stations along each line, helping focus on key stations for potential improvement.</td>
+        <td>Determine high traffic stations to focus improvement.</td>
         <td>identify</td>
         <td>browse</td>
         <td>present</td>
       </tr>
       <tr>
         <td>4</td>
-        <td> </td>
-        <td>Relating traffic congestion with other circumstances</td>
+        <td>Yes, because the map and charts allow us to explore congestion patterns in relation to other factors, such as time or station location.</td>
+        <td>Relating traffic congestion with other circumstances.</td>
         <td>discover</td>
         <td>explore</td>
         <td>summarize</td>
       </tr>
       <tr>
         <td>5</td>
-        <td></td>
-        <td>Compare seasonal variation between routes</td>
+        <td>No, because we focused on daily variations instead of seasonal variations, as seasonal data was not included in the dataset.</td>
+        <td>Compare seasonal variation between routes.</td>
         <td>compare</td>
         <td>lookup</td>
         <td>present</td>
       </tr>
       <tr>
         <td>6</td>
-        <td> </td>
-        <td>Compare the congestion pattern between key Boston stations and adjacent areas</td>
+        <td>Yes, because the map and bar chart allow us to compare congestion patterns between key stations and adjacent areas.</td>
+        <td>Compare the congestion pattern between key Boston stations and adjacent areas.</td>
         <td>compare</td>
         <td>browse</td>
         <td>present</td>
       </tr>
       <tr>
         <td>7</td>
-        <td> </td>
-        <td>Ridership difference between weekday and weekend</td>
+        <td>Yes, because the bar chart and tooltips show ridership differences between weekdays and weekends for each station.</td>
+        <td>Ridership difference between weekday and weekend.</td>
         <td>compare</td>
         <td>lookup</td>
         <td>present</td>
       </tr>
+      <tr>
+        <td>8</td>
+        <td>Yes, because the treemap categorizes stations into high, average, and low traffic levels, visualizing overall passenger flow across stops.</td>
+        <td>Visualize overall passenger flow across different MBTA stops using visualization.</td>
+        <td>compare</td>
+        <td>locate</td>
+        <td>derive</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Yes, because the line chart displays directional ridership differences (inbound/outbound) for selected stations.</td>
+        <td>Examine directional ridership differences for selected stations.</td>
+        <td>identify</td>
+        <td>browse</td>
+        <td>present</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>Yes, because the map and bar chart highlight and filter stations with similar ridership patterns using interactive features.</td>
+        <td>Highlight and filter stations with similar ridership patterns.</td>
+        <td>compare</td>
+        <td>browse</td>
+        <td>summarize</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>Yes, because the line chart effectively highlights ridership peaks during specific time periods, such as AM Peak and PM Peak.</td>
+        <td>Understand which time periods (e.g., AM Peak, PM Peak) experience the highest ridership.</td>
+        <td>identify</td>
+        <td>lookup</td>
+        <td>summarize</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Yes, because the line chart visualizes inbound and outbound flow trends over time for selected stations.</td>
+        <td>Analyze directional flow (inbound/outbound) over time for a selected station.</td>
+        <td>compare</td>
+        <td>locate</td>
+        <td>derive</td>
+      </tr>
+    
     </table>    
     
     
@@ -180,12 +248,12 @@
     <p><em>Sketches</em></p>
     <img src="images/sketch1.jpg" alt="the first sketch" style="width:70%; height:auto;">
     <img src="images/sketch2.jpg" alt="the second sketch" style="width:70%; height:auto;">
-    <p>We basically designed this visualization content based on the characteristics of the data. We wanted it to show the characteristics of the flow of people at each station and to make it easier to compare. Switching between lines to show the difference between lines was also a major consideration. Through this comparison, we hope to provide new perspectives for the viewer.</p>
-    <p>Therefore, we designed the map to allow users to interact with the map by clicking on the circle where the station is located to link the bar chart and line chart to show the routes and the flow of people at the station.</p>
-    <p>In the actual coding, we modified (added) the content of the line chart so that it can show different directions (dir_id) in different colors.</p>
-    <p>In our design, the bar chart and map interact with each other, and the station details of the station selected is shown in the line chart.</p>
-    <p>Our visualization needs to be further modified.</p>
-
+    <p>We designed the visualization content based on the specific characteristics of the MBTA data. Our goal was to represent the flow of passengers at each station clearly, allowing users to easily compare traffic across stations and lines. One of our key considerations was the ability to switch between different MBTA lines, enabling users to analyze how passenger flow varies across the system. By facilitating these comparisons, we aimed to provide users with new perspectives on Boston's transportation patterns.</p>
+    <p>To achieve this, we implemented an interactive map where users can click on the circles representing stations. This interaction dynamically links to the bar chart and line chart, which then display detailed data about the selected station's routes and passenger flow. This design ensures that users can explore specific stations while maintaining an overview of the larger system.</p>
+    <p>Through the iterative development process, we enhanced the line chart by incorporating directionality (dir_id) with distinct colors, allowing for more granular analysis of inbound and outbound flows. This modification added an extra layer of detail, making the visualization more informative.</p>
+    <p>The interaction between the bar chart and the map was also refined, ensuring seamless linking between visualizations. When a user selects a station on the bar chart, the corresponding station is highlighted on the map, and its detailed flow data is shown on the line chart. This integration creates a cohesive experience, connecting different aspects of the dataset into a unified visualization.</p>
+    <p>While the current version of our visualization provides significant insights, there is still room for improvement. For instance, additional features such as filtering by time period or showing historical trends could make the visualization even more comprehensive. We will continue to iterate based on user feedback and usability testing to refine the design further and meet user needs effectively.</p>
+  
     <!--<p><em>Expectation: Evidence of iterative improvement.
     Logical discussion of design choices grounded in theory from course.
     Discusses feedback from usability testing.</em></p>-->
@@ -197,8 +265,11 @@
     
     <!--<p><em>Expectation: Meaningfully wraps up project and has good future directions.</em></p>-->
 
-    <p>The linkage between map, bar chart and line has been basically implemented, while using color, line, bar and other forms to encode data. Next we may optimize and adjust the appearance of the visual content. At the same time, we may adjust the barchart to display more data (a bar is divided into two parts, one part shows total on flow, one part shows total off flow, and the whole bar shows the overall total  flow) and become more interactive. We may add more changes.</p>
-    
+    <p>The integration between the map, bar chart, and line chart has been successfully implemented, allowing for seamless interaction and linking across these visualizations. We effectively utilized visual encodings such as color, lines, and bars to represent key data points and trends. This interconnected system enables users to explore MBTA ridership data in an intuitive and interactive way.</p>
+    <p>Moving forward, we plan to further enhance the appearance and functionality of the visualizations. For example, the bar chart could be adjusted to display more granular data by dividing each bar into two segments: one representing total on-flow and the other representing total off-flow, while still maintaining the overall total flow for comparison. This modification would improve the clarity and depth of the data being presented.</p>
+    <p>Additionally, we aim to make the visualizations more interactive by adding features such as time-based filtering or customizable data views, which would allow users to focus on specific aspects of the data. These improvements will ensure that the visualizations are not only informative but also adaptable to diverse user needs.</p>
+    <p>This project has laid a strong foundation for analyzing and visualizing MBTA ridership patterns, and we look forward to iterating further based on user feedback and identifying areas where the visualizations can provide even greater insight.</p>
+   
     <h1>Acknowledgments</h1>
 
     <p><em>List here where any code, packages/libraries, text, images, designs, etc. that you leverage come from.</em></p>
