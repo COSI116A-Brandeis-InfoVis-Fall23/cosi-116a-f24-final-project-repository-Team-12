@@ -23,6 +23,8 @@
   </ol>
 </details>
 
+### Github Page
+The project is hosted on GitHub Pages. You can view it live here: [Boston MBTA Traffic Visualization](https://cosi116a-brandeis-infovis-fall23.github.io/cosi-116a-f24-final-project-repository-Team-12/).
 
 ## About The Project
 
@@ -76,7 +78,7 @@ The project aims to provide insights into Boston's public transportation traffic
 ## Setup Instructions
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/COSI116A-Brandeis-InfoVis-Fall23/cosi-116a-f24-final-project-repository-Team-12.git
 
 2. Navigate to the project directory:
     ```bash
