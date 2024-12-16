@@ -23,8 +23,17 @@
   </ol>
 </details>
 
+## Github Page Website
+
 ### Github Page
 The project is hosted on GitHub Pages. You can view it live here: [Boston MBTA Traffic Visualization](https://cosi116a-brandeis-infovis-fall23.github.io/cosi-116a-f24-final-project-repository-Team-12/).
+
+
+    https://cosi116a-brandeis-infovis-fall23.github.io/cosi-116a-f24-final-project-repository-Team-12/
+
+
+
+
 
 ## About The Project
 
